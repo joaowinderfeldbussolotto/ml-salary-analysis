@@ -1,0 +1,8 @@
+Idade → idade do profissional 
+Anos_Experiencia → tempo de experiência profissional.
+Escolaridade → nível educacional
+Segunda_Lingua → opção de segunda língua 
+Terceira_Lingua → opção de terceira língua 
+Regiao → região do país onde trabalha 
+Profissao → profissão principal 
+Salario (R$) → valor mensal estimado do salário 
