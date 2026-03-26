@@ -86,6 +86,37 @@ def predizer(profissao, escolaridade, regiao, idade, anos_exp, segunda_lingua, t
 **Intervalo estimado:** R$ {max(0,salario-mae):,.0f} — R$ {salario+mae:,.0f}
 
 ---
+Dataset	Link	#Imagens	Classes Anotadas	Implementações	Ex. de Associação	Observações/Limitações	
+Welding Defect Dataset v2 (Ultralytics/Kaggle)	Hugging Face: welding-defect-dataset-v2	~2.0k	Good Weld (Solda Boa); Bad Weld (Solda Ruim); Defect (Defeito)	Notebooks YOLOv8 (Hugging Face) – ex.: “Welding Defect Detection Model (YOLOv8)” (AvinashHM)	- Mordedura + Trinca de Cratera → Bad Weld (Solda Ruim).- Falta de Fusão ou Falta de Solda → Bad Weld (Solda Ruim).	
+- Classes genéricas (bom/mal solda, defeito), sem detalhamento da falha.
+- Bom para classificação geral (fácil ampliar dados).
+- Não há bounding boxes originais, apenas rótulos.- Exige converter nomes de arquivo em label.
+	
+Weld Quality Inspection (WELDING)	Roboflow: Weld quality inspection	3.7k	Crack (Trinca); Bad Welding (Solda Ruim); Excess Reinforcement (Excesso de Reforço); Good Welding (Solda Boa); Porosity (Porosidade); Spatters (Respingos)	Snap/YOLO model (WELDING); possível exportação YOLO	
+- Solda Porosa → Porosity (Porosidade).
+- Mordedura → Bad Welding (Solda Ruim).- Trinca de Cratera → Crack (Trinca).
+	
+- Cobre defeitos comuns (Porosity, Excess Reinforcement, Spatters).
+- Diferença no domínio (iluminação/controladas).- Excess Reinforcement pode não mapear diretamente às suas classes.
+	
+Weld Classifier (defspace)	Roboflow: Weld Classifier	3.3k	Burn-through (Perfuração/Queima); Crack (Trinca); Excess Reinforcement (Excesso de Reforço); Good Welding (Solda Boa); Overlap (Sobreposição); Porosity (Porosidade); Spatters (Respingos); Undercut (Mordedura)	Modelo YOLO/TensorFlow; referências em artigos	
+- Mordedura → Undercut (Mordedura).
+- Sobreposição → Overlap (Sobreposição).
+- Solda Porosa → Porosity (Porosidade).- Trinca de Cratera → Burn-through (Perfuração) ou Crack (Trinca).
+	
+- Classes detalhadas (Undercut, Overlap, Burn-through).
+- Útil para mapeamento preciso.- Pode exigir reclassificação para defeito genérico dependendo da qualidade das imagens.
+	
+weldingwaamdefect (weldingWAAMdefect)	Roboflow: weldingwaamdefect	5.2k	Crack (Trinca); Porosity (Porosidade); Spatter (Respingo); Welding Line (Linha de Solda)	Modelo pré-treinado YOLOv8 (weldingWAAMdefect)	
+- Solda Porosa → Porosity (Porosidade).
+- Trinca de Cratera → Crack (Trinca).
+- Respingo → Spatter (Respingo).- Falta de Solda/Mordedura → Welding Line (Linha de Solda) (aproximação).
+	
+- Foco em WAAM.
+- Welding Line indica posição, não defeito.
+- Não possui Overlap, Undercut etc.- Pode exigir remapeamento para classes genéricas.
+	
+
 
 **Modelo:** {meta.get('nome', 'N/A')}  
 **R² (teste):** {meta.get('r2_teste', 0):.4f}  

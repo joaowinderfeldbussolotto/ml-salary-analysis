@@ -9,30 +9,39 @@
 ## Estrutura do Projeto
 
 ```
-salarios-ml/
-├── data/
-│   └── dataset_salarios_brasil.csv
-├── models/                         # criado ao treinar
-│   ├── best_model.joblib
-│   ├── best_model_meta.json
-│   └── *.joblib                    # um por modelo
-├── results/                        # criado ao treinar
-│   └── model_comparison.csv
-├── mlruns/                         # criado pelo MLflow ao treinar
-├── notebooks/
-│   └── 02_resultados.py
-├── src/
-│   ├── pipeline/
-│   │   ├── preprocessing.py        # limpeza + feature engineering
-│   │   ├── features.py             # ColumnTransformer sklearn
-│   │   ├── models.py               # catálogo de modelos
-│   │   └── train.py                # script principal
-│   └── api/
-│       └── app.py                  # FastAPI
-├── app_hf.py                       # Gradio para Hugging Face Spaces
-├── Dockerfile
-├── Makefile
-└── requirements.txt
+ml-salary-analysis/                    # raiz do repositório
+├── data/                              # dados usados no treino
+│   └── dataset_salarios_brasil.csv    # dataset principal
+├── notebooks/                         # análises e experimentos
+│   ├── 02_resultados.py               # script de resultados
+│   └── resultados.ipynb               # notebook de resultados
+├── src/                               # código-fonte do projeto
+│   ├── api/                           # camada de API
+│   │   └── ...                        # módulos auxiliares da API
+│   └── pipeline/                      # pipeline de ML
+│       ├── features.py                # engenharia de features
+│       ├── models.py                  # catálogo de modelos
+│       ├── preprocessing.py           # limpeza de dados
+│       └── train.py                   # treino e avaliação
+├── models/                            # artefatos treinados
+│   ├── best_model.joblib              # melhor modelo salvo
+│   ├── best_model_meta.json           # metadados do melhor modelo
+│   └── *.joblib                       # demais modelos treinados
+├── results/                           # saídas de avaliação
+│   └── model_comparison.csv           # comparação entre modelos
+├── deploy_huggingface/                # app para deploy no HF
+│   ├── app.py                         # app do Space
+│   └── requirements.txt               # deps do deploy HF
+├── mlruns/                            # rastreamento do MLflow
+│   └── ...                            # runs e artefatos
+├── Notebook_ML_Salarios.ipynb         # notebook completo do projeto
+├── app_hf.py                          # app Gradio alternativo
+├── dataset_salarios_brasil.csv        # cópia do dataset na raiz
+├── mlflow_ui.py                       # inicializador do MLflow UI
+├── Dockerfile                         # imagem Docker da API
+├── Makefile                           # comandos utilitários
+├── README.md                          # documentação principal
+└── requirements.txt                   # dependências do projeto
 ```
 
 ---
@@ -42,15 +51,15 @@ salarios-ml/
 ### 1. Clonar e instalar
 
 ```bash
-git clone https://github.com/seu-usuario/salarios-ml.git
-cd salarios-ml
+git clone https://github.com/joaowinderfeldbussolotto/ml-salary-analysis.git
+cd ml-salary-analysis
 
 pip install -r requirements.txt
 ```
 
 ### 2. Treinar os modelos
 
-**Rode sempre a partir da raiz do projeto** (a pasta `salarios-ml/`):
+**Rode sempre a partir da raiz do projeto** (a pasta `ml-salary-analysis/`):
 
 ```bash
 python src/pipeline/train.py
